@@ -37,51 +37,69 @@ function App() {
   };
 
   return (
-    <div className="container">
-      <h1>Name List Manager</h1>
-      <div className="input-section">
+    <div>
+      <div className="input-wrapper">
         <input
           type="text"
           value={input}
           onChange={(e) => setInput(e.target.value)}
+          className="input"
           placeholder="Enter names separated by commas"
         />
         <button onClick={handleSubmit}>Submit</button>
       </div>
+      <header className="top-bar">
+        <h1>Name List Manager</h1>
+      </header>
 
-      <table>
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th className="actions">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {names.map((name, index) => (
-            <tr key={index}>
-              <td>
-                {editingIndex === index ? (
-                  <input
-                    type="text"
-                    value={editingValue}
-                    onChange={(e) => setEditingValue(e.target.value)}
-                  />
-                ) : (
-                  name
-                )}
-              </td>
-              <td className="actions">
-                {editingIndex === index ? (
-                  <button onClick={handleSave}>Save</button>
-                ) : (
-                  <button onClick={() => handleEdit(index)}>Edit</button>
-                )}
-                <button onClick={() => handleDelete(index)}>Delete</button>
-              </td>
+      <main className="table-section">
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th className="actions">Actions</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {names.map((name, index) => (
+              <tr key={index}>
+                <td>
+                  {editingIndex === index ? (
+                    <input
+                      type="text"
+                      value={editingValue}
+                      className="input"
+                      onChange={(e) => setEditingValue(e.target.value)}
+                    />
+                  ) : (
+                    name
+                  )}
+                </td>
+                <td className="actions">
+                  {editingIndex === index ? (
+                    <button className="save-btn" onClick={handleSave}>
+                      Save
+                    </button>
+                  ) : (
+                    <button
+                      className="edit-btn"
+                      onClick={() => handleEdit(index)}
+                    >
+                      Edit
+                    </button>
+                  )}
+                  <button
+                    className="delete-btn"
+                    onClick={() => handleDelete(index)}
+                  >
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </main>
     </div>
   );
 }
