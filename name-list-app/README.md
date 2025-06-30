@@ -24,6 +24,8 @@ A simple web app that lets users input a list of comma-separated names, display 
 ## 🔧 How to Run Locally
 
 ### 1. Clone the repository
+
 ```
 git clone https://github.com/Pogbayo/name-list-app.git
 cd name-list-app
+```
