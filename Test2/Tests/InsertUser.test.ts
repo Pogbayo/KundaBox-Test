@@ -23,23 +23,36 @@ test("User already exists", () => {
 });
 
 test("Invalid usernames", () => {
-  expect(insert_user("joe", new Date("1990-01-01"), "joe1@x.com", "Abc12345").code).toBe("INVALID_NAME");
-  expect(insert_user("j", new Date("1990-01-01"), "joe2@x.com", "Abc12345").code).toBe("INVALID_NAME");
+  const result1 = insert_user("joe", new Date("1990-01-01"), "joe1@x.com", "Abc12345");
+  expect(result1.code).toBe("INVALID_NAME");
+
+  const result2 = insert_user("j", new Date("1990-01-01"), "joe2@x.com", "Abc12345");
+  expect(result2.code).toBe("INVALID_NAME");
 });
 
 test("Invalid DOBs", () => {
   const recentDob = new Date();
   recentDob.setFullYear(recentDob.getFullYear() - 17);
-  expect(insert_user("uniqueuser", recentDob, "young@x.com", "Abc12345").code).toBe("INVALID_DOB");
+
+  const result = insert_user("uniqueuser", recentDob, "young@x.com", "Abc12345");
+  expect(result.code).toBe("INVALID_DOB");
 });
 
 test("Invalid emails", () => {
-  expect(insert_user("newuser1", new Date("1990-01-01"), "invalidemail", "Abc12345").code).toBe("INVALID_EMAIL");
-  expect(insert_user("newuser2", new Date("1990-01-01"), "noatsign.com", "Abc12345").code).toBe("INVALID_EMAIL");
+  const result1 = insert_user("newuser1", new Date("1990-01-01"), "invalidemail", "Abc12345");
+  expect(result1.code).toBe("INVALID_EMAIL");
+
+  const result2 = insert_user("newuser2", new Date("1990-01-01"), "noatsign.com", "Abc12345");
+  expect(result2.code).toBe("INVALID_EMAIL");
 });
 
 test("Invalid passwords", () => {
-  expect(insert_user("user1", new Date("1990-01-01"), "test1@x.com", "abcde").code).toBe("INVALID_PASSWORD"); 
-  expect(insert_user("user2", new Date("1990-01-01"), "test2@x.com", "ABCdef").code).toBe("INVALID_PASSWORD"); 
-  expect(insert_user("user3", new Date("1990-01-01"), "test3@x.com", "A1b").code).toBe("INVALID_PASSWORD"); 
+  const result1 = insert_user("user1", new Date("1990-01-01"), "test1@x.com", "abcde");
+  expect(result1.code).toBe("INVALID_PASSWORD");
+
+  const result2 = insert_user("user2", new Date("1990-01-01"), "test2@x.com", "ABCdef");
+  expect(result2.code).toBe("INVALID_PASSWORD");
+
+  const result3 = insert_user("user3", new Date("1990-01-01"), "test3@x.com", "A1b");
+  expect(result3.code).toBe("INVALID_PASSWORD");
 });

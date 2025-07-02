@@ -1,9 +1,9 @@
-import { useState } from "react";
-import "./App.css";
+import { useEffect, useState } from "react";
 
 function App() {
   const [input, setInput] = useState("");
   const [names, setNames] = useState<string[]>([]);
+  const [visibleNames, setVisibleNames] = useState<string[]>([]);
   const [editingIndex, setEditingIndex] = useState<number | null>(null);
   const [editingValue, setEditingValue] = useState("");
 
@@ -12,24 +12,44 @@ function App() {
       .split(",")
       .map((n) => n.trim())
       .filter((n) => n);
+
     setNames((prev) => [...prev, ...newNames]);
     setInput("");
   };
 
+  useEffect(() => {
+    const newEntries = names.slice(visibleNames.length);
+
+    if (newEntries.length === 0) return;
+
+    let i = 0;
+
+    const interval = setInterval(() => {
+      const nextName = newEntries[i]?.trim();
+      if (nextName) {
+        setVisibleNames((prev) => [...prev, nextName]);
+      }
+      i++;
+      if (i === newEntries.length) clearInterval(interval);
+    }, 200);
+
+    return () => clearInterval(interval);
+  }, [names, visibleNames.length]);
+
   const handleDelete = (index: number) => {
-    const updated = [...names];
+    const updated = [...visibleNames];
     updated.splice(index, 1);
     setNames(updated);
   };
 
   const handleEdit = (index: number) => {
     setEditingIndex(index);
-    setEditingValue(names[index]);
+    setEditingValue(visibleNames[index]);
   };
 
   const handleSave = () => {
     if (editingIndex === null) return;
-    const updated = [...names];
+    const updated = [...visibleNames];
     updated[editingIndex] = editingValue.trim();
     setNames(updated);
     setEditingIndex(null);
@@ -48,9 +68,6 @@ function App() {
         />
         <button onClick={handleSubmit}>Submit</button>
       </div>
-      <header className="top-bar">
-        <h1>Name List Manager</h1>
-      </header>
 
       <main className="table-section">
         <table>
@@ -61,8 +78,8 @@ function App() {
             </tr>
           </thead>
           <tbody>
-            {names.map((name, index) => (
-              <tr key={index}>
+            {visibleNames.map((name, index) => (
+              <tr key={index} className="fade-in-row">
                 <td>
                   {editingIndex === index ? (
                     <input
