@@ -35,17 +35,26 @@ cd name-list-app
 
 ### 2. Install dependencies
 
-```bash
 Make sure you have Node.js installed (version 16+ recommended).
 Then run:
+
+```bash
 npm install
 ```
 
 ### 3. Start the development server
 
-```bash npm run dev
-This will start the app on http://localhost:5173 (or another available port). Open this in your browser.
+```bash
+npm run dev
 ```
+
+This will start the app on
+
+```bash
+ http://localhost:5173
+```
+
+(or another available port). Open this in your browser.
 
 ### 4. 🖼️ Project Structure
 
