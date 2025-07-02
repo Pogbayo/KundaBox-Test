@@ -15,7 +15,7 @@ function isValidPassword(password: string) {
   return password.length >= 5 && password.length <= 16 && hasTwoNumbers && hasUpperCase;
 }
 
-export function insert_user(user_name: string, dob: Date, email: string, password: string): InsertResult {
+export function insert_user(user_name: any, dob: Date, email: string, password: any): InsertResult {
     
   const age = new Date().getFullYear() - dob.getFullYear();
   

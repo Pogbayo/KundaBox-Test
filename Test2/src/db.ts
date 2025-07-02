@@ -1,8 +1,8 @@
 type User = {
-  user_name: string;
+  user_name: any;
   dob: Date;
   email: string;
-  password: string;
+  password: any;
 };
 
 export const mockDB: User[] = [];
