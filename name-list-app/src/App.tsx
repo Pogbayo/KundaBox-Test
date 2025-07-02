@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   const [input, setInput] = useState("");
@@ -12,6 +14,11 @@ function App() {
       .split(",")
       .map((n) => n.trim())
       .filter((n) => n);
+
+    if (newNames.length < 2) {
+      toast.error("Please enter at least two names separated by commas.");
+      return;
+    }
 
     setNames((prev) => [...prev, ...newNames]);
     setInput("");
@@ -39,6 +46,7 @@ function App() {
   const handleDelete = (index: number) => {
     const updated = [...visibleNames];
     updated.splice(index, 1);
+    setVisibleNames(updated);
     setNames(updated);
   };
 
@@ -49,8 +57,13 @@ function App() {
 
   const handleSave = () => {
     if (editingIndex === null) return;
+    const trimmedValue = editingValue.trim();
+    if (!trimmedValue) return;
+
     const updated = [...visibleNames];
     updated[editingIndex] = editingValue.trim();
+    setVisibleNames(updated);
+
     setNames(updated);
     setEditingIndex(null);
     setEditingValue("");
@@ -116,6 +129,7 @@ function App() {
             ))}
           </tbody>
         </table>
+        <ToastContainer />
       </main>
     </div>
   );
