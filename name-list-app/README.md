@@ -31,25 +31,25 @@ Follow these steps to run the project on your machine:
 ```bash
 git clone https://github.com/Pogbayo/name-list-app.git
 cd name-list-app
+```
 
+### 2. Install dependencies
 
-
-2. Install dependencies
-
+```bash
 Make sure you have Node.js installed (version 16+ recommended).
 Then run:
 npm install
+```
 
+### 3. Start the development server
 
-3. Start the development server
-
-npm run dev
+```bash npm run dev
 This will start the app on http://localhost:5173 (or another available port). Open this in your browser.
+```
 
+### 4. 🖼️ Project Structure
 
-
-🖼️ Project Structure
-
+```bash
 ├── public/             # Static assets
 ├── src/
 │   ├── App.tsx         # Main component logic
